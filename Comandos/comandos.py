@@ -23,18 +23,16 @@ class Servicos:
 
     def consulta(self, message: telebot.types.Message) -> None:
         try:
-            # Verifica se o nome da criptomoeda foi fornecido
             if len(message.text.split()) < 2:
                 self.bot.send_message(
                     message.chat.id,
-                    'Por favor, forneça o nome da criptomoeda após o comando /consulta. Exemplo: /consulta bitcoin'
+                    """Por favor, forneça o nome da criptomoeda após o comando /consulta. 
+                    Exemplo: /consulta bitcoin"""
                 )
                 return
 
             crypto_name = message.text.split()[1].lower()
-            print(f'Consultando preço para: {crypto_name}')  # Log de depuração
             price = self.coin_client.get_price(ids=crypto_name, vs_currencies='brl')
-            print(f'Resultado da API: {price}')  # Log de depuração
 
             if price and crypto_name in price:
                 self.bot.send_message(
